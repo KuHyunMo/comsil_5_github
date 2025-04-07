@@ -1,0 +1,16 @@
+if [ "$#" -lt 1 ]; then
+	echo "Usage: phone searchfor [searchfor]"
+	echo "(You didn't tell me what you want to search for)"
+	exit 1
+fi
+
+data_file="mydata"
+awk_script="display.awk"
+
+cmd="cat \"$data_file\""
+for keyword in "$@"; do
+	cmd="$cmd | egrep \"$keyword\""
+done
+
+eval $cmd | awk -f "$awk_script"
+
